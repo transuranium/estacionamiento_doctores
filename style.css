@@ -96,12 +96,17 @@ h1 {
 .modal-content {
   background-color: #1e1e1e;
   color: #ffffff;
-  margin: 100px auto;
+  margin: 60px auto;
   padding: 20px;
   width: 300px;
   border-radius: 8px;
   text-align: left;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
+  max-height: 80vh; /* ограничиваем высоту */
+  overflow-y: auto; /* прокрутка при необходимости */
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
 }
 
 .modal-content input {
@@ -148,8 +153,10 @@ h1 {
 
   .modal-content {
     width: 90%;
-    margin: 60px auto;
+    margin: 40px auto;
     padding: 15px;
+    max-height: 80vh;
+    overflow-y: auto;
   }
 
   body {
