@@ -16,7 +16,7 @@ function openModal(spotId) {
 
   phoneInput.value = data.phone || "";
   brandInput.value = data.brand || "";
-  colorInput.value = data.color || "#dddddd";
+  colorInput.value = data.color || "#2b2b2b";
   officeInput.value = data.office || "";
   nameInput.value = data.name || "";
   commentInput.value = data.comment || "";
@@ -36,7 +36,7 @@ function save() {
     color: colorInput.value,
     office: officeInput.value,
     name: nameInput.value,
-    comment: commentInput.value,
+    comment: commentInput.value
   };
   localStorage.setItem(currentSpotId, JSON.stringify(data));
   renderSpots();
@@ -50,26 +50,24 @@ function remove() {
 }
 
 function renderSpots() {
-  spots.forEach((spot) => {
+  spots.forEach(spot => {
     const id = spot.dataset.id;
     const data = JSON.parse(localStorage.getItem(id)) || {};
 
     spot.innerHTML = `${id}`;
-    spot.style.backgroundColor = data.color || "#ddd";
+
+    // Цвет фона и текста
+    if (data.color && data.color !== "#dddddd") {
+      spot.style.backgroundColor = data.color;
+      spot.style.color = "#ffffff";
+    } else {
+      spot.style.backgroundColor = "#2b2b2b";
+      spot.style.color = "#ffffff";
+    }
 
     if (data.phone) {
-      const link = `https://wa.me/${data.phone.replace(/\D/g, "")}`;
+      const link = `https://wa.me/${data.phone.replace(/\D/g, '')}`;
       spot.innerHTML += `<br><a href="${link}" target="_blank">WhatsApp</a>`;
     }
     if (data.brand) spot.innerHTML += `<br><small>${data.brand}</small>`;
-    if (data.office) spot.innerHTML += `<br><small>${data.office}</small>`;
-    if (data.name) spot.innerHTML += `<br><strong>${data.name}</strong>`;
-    if (data.comment) spot.innerHTML += `<br><small>${data.comment}</small>`;
-  });
-}
-
-spots.forEach((spot) => {
-  spot.addEventListener("click", () => openModal(spot.dataset.id));
-});
-
-renderSpots();
+    if (data.office) spot.inner
