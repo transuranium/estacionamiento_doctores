@@ -38,6 +38,13 @@ function save() {
     name: nameInput.value,
     comment: commentInput.value,
   };
+
+  fetch("http://localhost:3000/notify", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ spot: currentSpotId, ...data }),
+  });
+
   localStorage.setItem(currentSpotId, JSON.stringify(data));
   renderSpots();
   closeModal();
