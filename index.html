@@ -4,7 +4,7 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Estacionamiento para doctores</title>
-    <link rel="stylesheet" href="style.css" />
+    <link rel="stylesheet" href="style.css?v=1" />
   </head>
   <body>
     <h1>Estacionamiento para doctores</h1>
@@ -27,17 +27,23 @@
     <div id="modal" class="modal hidden">
       <div class="modal-content">
         <h2 id="modal-title">Editar lugar</h2>
-        <label>Nombre:<br /><input type="text" id="nameInput" /></label><br />
+
         <label>Teléfono:<br /><input type="text" id="phoneInput" /></label
         ><br />
+        <label>Marca:<br /><input type="text" id="brandInput" /></label><br />
+        <label>Color:<br /><input type="color" id="colorInput" /></label><br />
+        <label>Consultorio:<br /><input type="text" id="officeInput" /></label
+        ><br />
+        <label>Nombre:<br /><input type="text" id="nameInput" /></label><br />
         <label>Comentario:<br /><input type="text" id="commentInput" /></label
         ><br />
+
         <button onclick="save()">Guardar</button>
         <button onclick="remove()">Eliminar</button>
         <button onclick="closeModal()">Cancelar</button>
       </div>
     </div>
 
-    <script src="script.js"></script>
+    <script src="script.js?v=1"></script>
   </body>
 </html>
