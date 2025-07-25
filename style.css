@@ -1,13 +1,14 @@
 body {
   font-family: Arial, sans-serif;
   padding: 20px;
-  background: #121212;
-  color: #e0e0e0;
+  background-color: #121212;
+  color: #ffffff;
   text-align: center;
 }
 
 h1 {
   margin-bottom: 20px;
+  font-weight: bold;
   color: #ffffff;
 }
 
@@ -41,24 +42,45 @@ h1 {
 .spot {
   background-color: #2b2b2b;
   color: #ffffff;
-  padding: 20px;
+  padding: 15px;
   border-radius: 10px;
   cursor: pointer;
   width: 80px;
   min-height: 80px;
+  text-align: center;
+  font-size: 13.5px;
+  line-height: 1.25;
   transition: background-color 0.3s ease;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
 }
 
 .spot a {
   color: #00bfff;
   text-decoration: underline;
+  font-size: 13px;
+  margin: 4px 0 2px;
 }
 
 .spot small {
   display: block;
-  margin-top: 3px;
-  font-size: 0.8em;
-  color: #cfcfcf;
+  font-size: 12px;
+  margin-top: 1px;
+}
+
+.spot strong {
+  display: block;
+  font-weight: bold;
+  font-size: 14px;
+  margin-top: 5px;
+}
+
+/* 🔒 Фикс нежелательной перекраски текста */
+.spot * {
+  color: inherit !important;
+  text-decoration: none !important;
 }
 
 .modal {
@@ -67,7 +89,8 @@ h1 {
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.5);
+  background-color: rgba(0, 0, 0, 0.6);
+  z-index: 1000;
 }
 
 .modal-content {
@@ -78,16 +101,18 @@ h1 {
   width: 300px;
   border-radius: 8px;
   text-align: left;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
 }
 
 .modal-content input {
   background-color: #333;
   color: #fff;
   border: 1px solid #555;
-  padding: 5px;
+  padding: 6px;
   border-radius: 4px;
   width: 100%;
-  margin-bottom: 10px;
+  margin-bottom: 12px;
+  font-size: 14px;
 }
 
 .modal-content button {
@@ -98,6 +123,7 @@ h1 {
   margin: 5px 4px 0 0;
   border-radius: 4px;
   cursor: pointer;
+  font-size: 14px;
 }
 
 .modal-content button:hover {
@@ -111,12 +137,12 @@ h1 {
 @media (max-width: 600px) {
   .spot {
     width: 60px;
-    padding: 15px;
-    font-size: 14px;
+    padding: 12px;
+    font-size: 12px;
   }
 
   .hospital {
-    font-size: 16px;
+    font-size: 15px;
     padding: 15px;
   }
 

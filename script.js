@@ -36,7 +36,7 @@ function save() {
     color: colorInput.value,
     office: officeInput.value,
     name: nameInput.value,
-    comment: commentInput.value
+    comment: commentInput.value,
   };
   localStorage.setItem(currentSpotId, JSON.stringify(data));
   renderSpots();
@@ -50,24 +50,35 @@ function remove() {
 }
 
 function renderSpots() {
-  spots.forEach(spot => {
+  spots.forEach((spot) => {
     const id = spot.dataset.id;
     const data = JSON.parse(localStorage.getItem(id)) || {};
 
-    spot.innerHTML = `${id}`;
+    const isEmpty =
+      !data.phone && !data.brand && !data.office && !data.name && !data.comment;
+    const bgColor = isEmpty ? "#2b2b2b" : data.color || "#2b2b2b";
 
-    // Цвет фона и текста
-    if (data.color && data.color !== "#dddddd") {
-      spot.style.backgroundColor = data.color;
-      spot.style.color = "#ffffff";
-    } else {
-      spot.style.backgroundColor = "#2b2b2b";
-      spot.style.color = "#ffffff";
-    }
+    spot.style.backgroundColor = bgColor;
+    spot.style.color = "#fff";
+
+    let html = `${id}`;
 
     if (data.phone) {
-      const link = `https://wa.me/${data.phone.replace(/\D/g, '')}`;
-      spot.innerHTML += `<br><a href="${link}" target="_blank">WhatsApp</a>`;
+      const link = `https://wa.me/${data.phone.replace(/\D/g, "")}`;
+      html += `<br><a href="${link}" target="_blank">WhatsApp</a>`;
     }
-    if (data.brand) spot.innerHTML += `<br><small>${data.brand}</small>`;
-    if (data.office) spot.inner
+
+    if (data.brand) html += `<br><small>${data.brand}</small>`;
+    if (data.office) html += `<br><small>${data.office}</small>`;
+    if (data.name) html += `<br><strong>${data.name}</strong>`;
+    if (data.comment) html += `<br><small>${data.comment}</small>`;
+
+    spot.innerHTML = html;
+  });
+}
+
+spots.forEach((spot) => {
+  spot.addEventListener("click", () => openModal(spot.dataset.id));
+});
+
+renderSpots();
