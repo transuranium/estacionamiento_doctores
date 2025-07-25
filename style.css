@@ -156,3 +156,19 @@ h1 {
     padding: 10px;
   }
 }
+
+.spot a {
+  color: #00ffff; /* яркий цвет */
+  text-decoration: underline; /* подчёркивание */
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 13px;
+  margin: 4px 0 2px;
+  display: inline-block;
+  border-bottom: 2px dotted #00ffff; /* дополнительное визуальное подчёркивание */
+}
+
+.spot a:hover {
+  color: #ffffff;
+  border-bottom-color: #ffffff;
+}
