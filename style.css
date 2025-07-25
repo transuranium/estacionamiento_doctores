@@ -9,20 +9,39 @@ h1 {
   margin-bottom: 20px;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  grid-gap: 15px;
+.hospital {
+  background-color: #cce5ff;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  padding: 20px;
+  font-weight: bold;
+  margin-bottom: 20px;
+  max-width: 400px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.parking {
+  display: flex;
+  flex-direction: column;
+  gap: 15px;
   max-width: 400px;
   margin: 0 auto;
 }
 
+.row {
+  display: flex;
+  gap: 15px;
+  justify-content: center;
+}
+
 .spot {
   background-color: #ddd;
-  padding: 15px;
+  padding: 20px;
   border-radius: 10px;
   cursor: pointer;
-  position: relative;
+  width: 80px;
+  min-height: 80px;
 }
 
 .spot small {
@@ -54,15 +73,15 @@ h1 {
 }
 
 @media (max-width: 600px) {
-  .grid {
-    grid-template-columns: repeat(2, 1fr);
-    grid-gap: 10px;
-    max-width: 100%;
+  .spot {
+    width: 60px;
+    padding: 15px;
+    font-size: 14px;
   }
 
-  .spot {
-    padding: 10px;
-    font-size: 14px;
+  .hospital {
+    font-size: 16px;
+    padding: 15px;
   }
 
   .modal-content {
