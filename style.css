@@ -277,3 +277,9 @@ h1 {
     height: 40px;
   }
 }
+
+/* Adaptación móvil: tabla con scroll horizontal */
+.table-wrapper {
+  width: 100%;
+  overflow-x: auto;
+}
