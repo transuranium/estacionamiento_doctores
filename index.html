@@ -4,51 +4,150 @@
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Estacionamiento para doctores</title>
-    <link rel="stylesheet" href="style.css?v=1" />
+    <!-- Main stylesheet.  Defines the dark theme and responsive layout. -->
+    <link rel="stylesheet" href="style.css" />
   </head>
   <body>
     <h1>Estacionamiento para doctores</h1>
 
-    <div class="hospital">🏥 Hospital</div>
+    <!-- Tabla con los vehículos de los doctores.  Cada fila muestra la foto
+         del automóvil, la marca, el color (con un fondo del color
+         correspondiente), el nombre del doctor y accesos directos para
+         WhatsApp y teléfono.  Esta tabla es visual únicamente; los datos no
+         están vinculados a la cuadrícula de estacionamiento. -->
+    <table class="doctors-table">
+      <thead>
+        <tr>
+          <th>Foto</th>
+          <th>Marca</th>
+          <th>Color</th>
+          <th>Nombre</th>
+          <th>WhatsApp</th>
+          <th>Teléfono</th>
+        </tr>
+      </thead>
+      <tbody>
+        <!-- Doctor 1 -->
+        <tr>
+          <td>
+            <img
+              src="fotos/photo_2025-07-27_08-05-38.jpg"
+              alt="KIA gris del Dr.&nbsp;Tejeda"
+              class="doctor-photo"
+            />
+          </td>
+          <td>KIA</td>
+          <!-- El recuadro de color usa un fondo gris y texto contrastante.  -->
+          <td>
+            <span class="color-box" style="background-color: #808080; color: #ffffff"
+              >Gris</span
+            >
+          </td>
+          <td>Dr.&nbsp;Tejeda</td>
+          <td>
+            <a
+              href="https://wa.me/529983212158"
+              target="_blank"
+              class="icon-link"
+              title="Enviar mensaje por WhatsApp"
+              >💬</a
+            >
+          </td>
+          <td>
+            <a
+              href="tel:+529983212158"
+              class="icon-link"
+              title="Llamar por teléfono"
+              >📞</a
+            >
+          </td>
+        </tr>
+        <!-- Doctor 2 -->
+        <tr>
+          <td>
+            <img
+              src="fotos/photo_2025-07-27_08-05-34.jpg"
+              alt="Mercedes blanco de Alejandro de la Garza"
+              class="doctor-photo"
+            />
+          </td>
+          <td>Mercedes</td>
+          <td>
+            <span class="color-box" style="background-color: #f2f2f2; color: #000000"
+              >Blanco</span
+            >
+          </td>
+          <td>Alejandro&nbsp;de&nbsp;la&nbsp;Garza</td>
+          <td><!-- Sin WhatsApp disponible --></td>
+          <td><!-- Sin teléfono disponible --></td>
+        </tr>
+      </tbody>
+    </table>
 
-    <div class="parking">
+    <!-- Cuadrícula del estacionamiento.  Consta de seis plazas (A1–B3).
+         Cada celda es interactiva y al hacer clic se abre un cuadro modal
+         donde se pueden introducir los datos del vehículo.  La información
+         se guarda en localStorage para persistir entre recargas. -->
+    <div class="parking-grid">
       <div class="row">
-        <div class="spot" data-id="A1">A1</div>
-        <div class="spot" data-id="A2">A2</div>
-        <div class="spot" data-id="A3">A3</div>
+        <div class="cell" data-spot="A1">A1</div>
+        <div class="cell" data-spot="A2">A2</div>
+        <div class="cell" data-spot="A3">A3</div>
       </div>
       <div class="row">
-        <div class="spot" data-id="B1">B1</div>
-        <div class="spot" data-id="B2">B2</div>
-        <div class="spot" data-id="B3">B3</div>
+        <div class="cell" data-spot="B1">B1</div>
+        <div class="cell" data-spot="B2">B2</div>
+        <div class="cell" data-spot="B3">B3</div>
       </div>
     </div>
 
+    <!-- Modal para añadir o editar un registro de estacionamiento.  Contiene
+         campos de texto para nombre, teléfono, marca y color.  Incluye
+         botones para guardar localmente, enviar los datos a Igor mediante
+         Telegram, eliminar el registro o cancelar la edición. -->
     <div id="modal" class="modal hidden">
       <div class="modal-content">
         <h2 id="modal-title">Editar lugar</h2>
-
-        <label>Teléfono:<br /><input type="text" id="phoneInput" /></label
-        ><br />
-        <label>Marca:<br /><input type="text" id="brandInput" /></label><br />
-        <label>Color:<br /><input type="color" id="colorInput" /></label><br />
-        <label>Consultorio:<br /><input type="text" id="officeInput" /></label
-        ><br />
-        <label>Nombre:<br /><input type="text" id="nameInput" /></label><br />
-        <label>Comentario:<br /><input type="text" id="commentInput" /></label
-        ><br />
-
-        <button onclick="save()">Guardar</button>
-        <button onclick="remove()">Eliminar</button>
-        <button onclick="closeModal()">Cancelar</button>
+        <label>
+          Nombre:
+          <input type="text" id="input-name" />
+        </label>
+        <label>
+          Teléfono:
+          <input type="text" id="input-phone" />
+        </label>
+        <label>
+          Marca:
+          <input type="text" id="input-brand" />
+        </label>
+        <label>
+          Color:
+          <input type="color" id="input-color" value="#2b2b2b" />
+        </label>
+        <div class="modal-actions">
+          <button id="save-btn" class="primary">Guardar</button>
+          <button id="send-btn" class="secondary">Enviar a Igor</button>
+          <button id="delete-btn" class="danger">Eliminar</button>
+          <button id="cancel-btn" class="secondary">Cancelar</button>
+        </div>
       </div>
     </div>
-    <div class="contact-button">
-      <a href="https://wa.me/5215639305210" target="_blank"
-        >📞 Contactar a Igor</a
-      >
+
+    <!-- Formulario para enviar un mensaje anónimo a Igor.  El mensaje se
+         envía a través de la API de Telegram utilizando el mismo bot que
+         recibe los registros de estacionamiento. -->
+    <div class="anonymous-form">
+      <textarea
+        id="anonymous-message"
+        placeholder="Escribe tu mensaje aquí..."
+      ></textarea>
+      <button id="anonymous-send-btn" class="primary">
+        Enviar mensaje anónimo a Igor
+      </button>
     </div>
 
-    <script src="script.js?v=1"></script>
+    <!-- Lógica de la aplicación: maneja la tabla de estacionamiento, el
+         almacenamiento local y la comunicación con Telegram. -->
+    <script src="script.js"></script>
   </body>
 </html>

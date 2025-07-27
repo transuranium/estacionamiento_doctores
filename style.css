@@ -1,5 +1,18 @@
+/*
+ * Estilos para la aplicación "Estacionamiento para doctores".
+ *
+ * La interfaz se presenta en modo oscuro con texto claro para
+ * mejorar la legibilidad.  La tabla de doctores muestra una foto,
+ * marca, color, nombre y enlaces para WhatsApp y teléfono.  La
+ * cuadrícula de estacionamiento permite editar cada plaza mediante
+ * un modal.  También se incluye un formulario para enviar mensajes
+ * anónimos a Igor a través de Telegram.
+ */
+
+/* Configuración global */
 body {
   font-family: Arial, sans-serif;
+  margin: 0;
   padding: 20px;
   background-color: #121212;
   color: #ffffff;
@@ -7,82 +20,106 @@ body {
 }
 
 h1 {
-  margin-bottom: 20px;
+  margin-bottom: 24px;
+  font-size: 26px;
   font-weight: bold;
+}
+
+/* Tabla de doctores */
+.doctors-table {
+  width: 100%;
+  max-width: 800px;
+  margin: 0 auto 40px auto;
+  border-collapse: collapse;
   color: #ffffff;
 }
 
-.hospital {
+.doctors-table th,
+.doctors-table td {
+  border: 1px solid #444;
+  padding: 8px 12px;
+  text-align: center;
+  font-size: 14px;
+}
+
+.doctors-table th {
   background-color: #1e1e1e;
-  border: 2px solid #007bff;
-  border-radius: 10px;
-  padding: 20px;
   font-weight: bold;
-  margin-bottom: 20px;
-  max-width: 400px;
-  margin-left: auto;
-  margin-right: auto;
-  color: #ffffff;
 }
 
-.parking {
+.doctors-table tr:nth-child(even) {
+  background-color: #2b2b2b;
+}
+
+.doctor-photo {
+  height: 50px;
+  width: auto;
+  border-radius: 6px;
+  object-fit: cover;
+}
+
+/* Cuadro de color en la tabla */
+.color-box {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 13px;
+}
+
+/* Iconos para WhatsApp y teléfono */
+.icon-link {
+  font-size: 20px;
+  text-decoration: none;
+  color: #00bfff;
+  display: inline-block;
+}
+
+.icon-link:hover {
+  opacity: 0.8;
+}
+
+/* Cuadrícula de estacionamiento */
+.parking-grid {
   display: flex;
   flex-direction: column;
   gap: 15px;
-  max-width: 400px;
-  margin: 0 auto;
+  max-width: 420px;
+  margin: 0 auto 40px auto;
 }
 
-.row {
+.parking-grid .row {
   display: flex;
-  gap: 15px;
   justify-content: center;
+  gap: 15px;
 }
 
-.spot {
+.parking-grid .cell {
   background-color: #2b2b2b;
   color: #ffffff;
-  padding: 15px;
+  width: 90px;
+  min-height: 90px;
   border-radius: 10px;
   cursor: pointer;
-  width: 80px;
-  min-height: 80px;
-  text-align: center;
-  font-size: 13.5px;
-  line-height: 1.25;
-  transition: background-color 0.3s ease;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-}
-
-.spot a {
-  color: #00bfff;
-  text-decoration: underline;
   font-size: 13px;
-  margin: 4px 0 2px;
+  line-height: 1.3;
+  padding: 5px;
+  text-align: center;
+  transition: background-color 0.3s ease;
+  box-shadow: 0 0 4px rgba(0, 0, 0, 0.4);
 }
 
-.spot small {
+/* Texto que aparece dentro de las celdas ocupadas */
+.parking-grid .cell small {
   display: block;
   font-size: 12px;
-  margin-top: 1px;
+  margin-top: 2px;
 }
 
-.spot strong {
-  display: block;
-  font-weight: bold;
-  font-size: 14px;
-  margin-top: 5px;
-}
-
-/* 🔒 Фикс нежелательной перекраски текста */
-.spot * {
-  color: inherit !important;
-  text-decoration: none !important;
-}
-
+/* Modal */
 .modal {
   position: fixed;
   top: 0;
@@ -90,115 +127,153 @@ h1 {
   width: 100%;
   height: 100%;
   background-color: rgba(0, 0, 0, 0.6);
-  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 999;
+}
+
+.modal.hidden {
+  display: none;
 }
 
 .modal-content {
   background-color: #1e1e1e;
   color: #ffffff;
-  margin: 60px auto;
   padding: 20px;
-  width: 300px;
   border-radius: 8px;
-  text-align: left;
+  width: 320px;
+  max-height: 80vh;
+  overflow-y: auto;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.8);
-  max-height: 80vh; /* ограничиваем высоту */
-  overflow-y: auto; /* прокрутка при необходимости */
   display: flex;
   flex-direction: column;
-  justify-content: flex-start;
+  gap: 10px;
 }
 
-.modal-content input {
+.modal-content label {
+  display: flex;
+  flex-direction: column;
+  font-size: 14px;
+  gap: 4px;
+}
+
+.modal-content input[type="text"],
+.modal-content input[type="color"] {
   background-color: #333;
   color: #fff;
   border: 1px solid #555;
   padding: 6px;
   border-radius: 4px;
-  width: 100%;
-  margin-bottom: 12px;
   font-size: 14px;
+  width: 100%;
 }
 
-.modal-content button {
-  background-color: #444;
-  color: #fff;
+.modal-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-top: 10px;
+}
+
+.modal-actions button {
+  flex: 1 1 45%;
+  padding: 8px 12px;
   border: none;
-  padding: 6px 12px;
-  margin: 5px 4px 0 0;
   border-radius: 4px;
   cursor: pointer;
   font-size: 14px;
 }
 
-.modal-content button:hover {
-  background-color: #666;
+/* Estilos para botones según su tipo */
+.primary {
+  background-color: #007bff;
+  color: #ffffff;
 }
 
-.hidden {
-  display: none;
+.primary:hover {
+  background-color: #0062cc;
 }
 
+.secondary {
+  background-color: #444444;
+  color: #ffffff;
+}
+
+.secondary:hover {
+  background-color: #555555;
+}
+
+.danger {
+  background-color: #dc3545;
+  color: #ffffff;
+}
+
+.danger:hover {
+  background-color: #c82333;
+}
+
+/* Formulario de mensaje anónimo */
+.anonymous-form {
+  max-width: 600px;
+  margin: 30px auto 0 auto;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  background-color: #1e1e1e;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.5);
+}
+
+.anonymous-form textarea {
+  background-color: #333;
+  color: #ffffff;
+  border: 1px solid #555;
+  border-radius: 4px;
+  padding: 10px;
+  font-size: 14px;
+  resize: vertical;
+  min-height: 100px;
+}
+
+.anonymous-form button {
+  align-self: flex-start;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+  font-size: 14px;
+  background-color: #007bff;
+  color: #ffffff;
+}
+
+.anonymous-form button:hover {
+  background-color: #0062cc;
+}
+
+/* Ajustes responsivos */
 @media (max-width: 600px) {
-  .spot {
-    width: 60px;
-    padding: 12px;
+  .parking-grid .cell {
+    width: 70px;
+    min-height: 70px;
     font-size: 12px;
   }
-
-  .hospital {
-    font-size: 15px;
-    padding: 15px;
+  .parking-grid {
+    gap: 10px;
   }
-
+  .parking-grid .row {
+    gap: 10px;
+  }
   .modal-content {
     width: 90%;
-    margin: 40px auto;
-    padding: 15px;
-    max-height: 80vh;
-    overflow-y: auto;
   }
-
-  body {
-    padding: 10px;
+  .doctors-table th,
+  .doctors-table td {
+    font-size: 12px;
+    padding: 6px 8px;
   }
-}
-
-.spot a {
-  color: #00ffff; /* яркий цвет */
-  text-decoration: underline; /* подчёркивание */
-  font-weight: bold;
-  cursor: pointer;
-  font-size: 13px;
-  margin: 4px 0 2px;
-  display: inline-block;
-  border-bottom: 2px dotted #00ffff; /* дополнительное визуальное подчёркивание */
-}
-
-.spot a:hover {
-  color: #ffffff;
-  border-bottom-color: #ffffff;
-}
-
-.contact-button {
-  margin-top: 30px;
-  text-align: center;
-}
-
-.contact-button a {
-  display: inline-block;
-  background-color: #25d366;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 8px;
-  text-decoration: none;
-  font-weight: bold;
-  font-size: 16px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
-  transition: background-color 0.3s, transform 0.2s;
-}
-
-.contact-button a:hover {
-  background-color: #1ebe5d;
-  transform: scale(1.05);
+  .doctor-photo {
+    height: 40px;
+  }
 }
