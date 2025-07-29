@@ -277,6 +277,16 @@ h1 {
   color: #000000;
 }
 
+.color-box.gris {
+  background-color: #808080;
+  color: #ffffff;
+}
+
+.color-box.blanco {
+  background-color: #ffffff;
+  color: #000000;
+}
+
 /* Ajustes responsivos */
 @media (max-width: 600px) {
   .parking-grid .cell {
